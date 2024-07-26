@@ -14,6 +14,7 @@
 		E55128862C5183BC00F8C13D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55128852C5183BC00F8C13D /* Persistence.swift */; };
 		E55128892C5183BC00F8C13D /* CoreData_CRUD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E55128872C5183BC00F8C13D /* CoreData_CRUD.xcdatamodeld */; };
 		E55128912C51879400F8C13D /* CRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55128902C51879400F8C13D /* CRUDViewModel.swift */; };
+		E5A602ED2C54306E00951A6F /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A602EC2C54306E00951A6F /* FormViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		E55128852C5183BC00F8C13D /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		E55128882C5183BC00F8C13D /* CoreData_CRUD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData_CRUD.xcdatamodel; sourceTree = "<group>"; };
 		E55128902C51879400F8C13D /* CRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDViewModel.swift; sourceTree = "<group>"; };
+		E5A602EC2C54306E00951A6F /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +59,7 @@
 		E551287B2C5183BA00F8C13D /* CoreData-CRUD */ = {
 			isa = PBXGroup;
 			children = (
-				E551288F2C51877700F8C13D /* CRUDViewModel */,
+				E5A602E82C54300600951A6F /* ViewModel */,
 				E551287C2C5183BA00F8C13D /* CoreData_CRUDApp.swift */,
 				E551287E2C5183BA00F8C13D /* ContentView.swift */,
 				E55128802C5183BC00F8C13D /* Assets.xcassets */,
@@ -82,6 +84,23 @@
 				E55128902C51879400F8C13D /* CRUDViewModel.swift */,
 			);
 			path = CRUDViewModel;
+			sourceTree = "<group>";
+		};
+		E5A602E82C54300600951A6F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E5A602EB2C54305C00951A6F /* FormViewModel */,
+				E551288F2C51877700F8C13D /* CRUDViewModel */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		E5A602EB2C54305C00951A6F /* FormViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E5A602EC2C54306E00951A6F /* FormViewModel.swift */,
+			);
+			path = FormViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A602ED2C54306E00951A6F /* FormViewModel.swift in Sources */,
 				E55128912C51879400F8C13D /* CRUDViewModel.swift in Sources */,
 				E55128862C5183BC00F8C13D /* Persistence.swift in Sources */,
 				E551287F2C5183BA00F8C13D /* ContentView.swift in Sources */,
