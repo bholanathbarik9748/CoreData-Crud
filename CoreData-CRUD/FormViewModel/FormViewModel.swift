@@ -16,38 +16,37 @@ class FormViewModel : ObservableObject {
     @Published var showAlert : Bool = false;
     @Published var errorMsg : String = "";
     
-    
-    func ValidAndSubmit() {
+    func ValidAndSubmit() -> Bool {
         if email.isEmpty {
             showAlert = true
             errorMsg = "Please Enter Email";
-            return
+            return false;
         }
         
         if password.isEmpty {
             showAlert = true
             errorMsg = "Please Enter Password";
-            return
+            return false;
         }
         
         if userName.isEmpty {
             showAlert = true
             errorMsg = "Please Enter User  Name";
-            return
+            return false;
         }
         
         if !isValidEmail(email) {
             showAlert = true;
             errorMsg = "Please Enter Valid Email";
-            return
+            return false;
         }
         
         if(!isValidPassword(password)){
             showAlert = true
-            return
+            return false;
         }
         
-        print("Success");
+        return true;
     }
     
     private func isValidEmail(_ email: String) -> Bool {
@@ -63,26 +62,22 @@ class FormViewModel : ObservableObject {
             return false;
         }
         
-        if password.contains(where: { $0.isUppercase }) {
+        if !password.contains(where: { $0.isUppercase }) {
             errorMsg = "Password Must Contain Upper Case Letter."
             return false;
         }
         
-        if password.contains(where: { $0.isLowercase }) {
+        if !password.contains(where: { $0.isLowercase }) {
             errorMsg = "Password Must Contain Lower Case Letter."
             return false;
         }
         
         
-        if password.contains(where: { $0.isNumber }) {
+        if !password.contains(where: { $0.isNumber }) {
             errorMsg = "Password Must Contain Number."
             return false;
         }
         
-        if password.contains(where: { $0.isLetter && $0.isNumber }) {
-            errorMsg = "Password Must Contain Alphabet as well as Number."
-            return false;
-        }
         return true;
     }
 }

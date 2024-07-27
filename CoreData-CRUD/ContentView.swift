@@ -13,15 +13,13 @@ struct ContentView: View {
     
     @FetchRequest(
         entity: User.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \User.userName,
-                                           ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \User.userName, ascending: true)],
         animation: .default)
     
     private var users: FetchedResults<User>
     
-    @State private var email : String = ""
-    @State private var password : String = ""
-    @State private var userName : String = ""
+    @EnvironmentObject var FormViewModel : FormViewModel;
+    @EnvironmentObject var CRUDViewModel : CRUDViewModel;
     
     
     var body: some View {
@@ -29,17 +27,19 @@ struct ContentView: View {
             Form {
                 Section(header: Text("Form")){
                     // Input Field
-                    TextField("Please Enter Email", text: $email);
-                    TextField("Please Enter user Name",text: $userName);
-                    SecureField("Please Enter Password",text: $password);
+                    TextField("Please Enter Email", text: $FormViewModel.email);
+                    TextField("Please Enter user Name",text: $FormViewModel.userName);
+                    SecureField("Please Enter Password",text: $FormViewModel.password);
                 }
             }
             
             // Submit Button
             Button(action: {
-                print("Email: \(email)");
-                print("$userName: \(userName)");
-                print("Email: \(password)");
+                let isValid = FormViewModel.ValidAndSubmit();
+ 
+                if isValid {
+                    CRUDViewModel.createRecord(context: viewContext, userName: FormViewModel.userName, email: FormViewModel.email, password: FormViewModel.password)
+                }
             }){
                 Text("Submit")
                     .padding()
@@ -50,11 +50,17 @@ struct ContentView: View {
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 
             }
-        }
-    }
+        }.alert(isPresented: $FormViewModel.showAlert) {
+            Alert(title: Text("Error"),
+                  message: Text(FormViewModel.errorMsg),
+                  dismissButton: .default(Text("Ok"))
+            )};
+    };
 }
 
 
 #Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    ContentView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        .environmentObject(FormViewModel())
 }

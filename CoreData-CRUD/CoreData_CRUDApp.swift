@@ -15,6 +15,8 @@ struct CoreData_CRUDApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(FormViewModel())
+                .environmentObject(CRUDViewModel())
         }
     }
 }

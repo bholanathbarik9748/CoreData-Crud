@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CRUDViewModel {
+class CRUDViewModel: ObservableObject {
     // Save Records
     func saveContext(context: NSManagedObjectContext){
         if context.hasChanges {
