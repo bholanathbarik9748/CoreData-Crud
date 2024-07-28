@@ -9,11 +9,14 @@ import Foundation
 import CoreData
 
 class CRUDViewModel: ObservableObject {
+    @Published var users: [User] = []
+    
     // Save Records
     func saveContext(context: NSManagedObjectContext){
         if context.hasChanges {
             do {
                 try context.save()
+                print("Record Create Successfully");
             }catch {
                 let NsError = error as NSError;
                 print("Save Error -> \(NsError)");
@@ -32,9 +35,10 @@ class CRUDViewModel: ObservableObject {
     
     // Get all Record
     func getAllRecord(context: NSManagedObjectContext) -> [User] {
-        let fetchRequest : NSFetchRequest<User> = User.fetchRequest()
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         do {
-            return try context.fetch(fetchRequest);
+            users = try context.fetch(fetchRequest)
+            return users;
         }catch {
             print("Failed to get all user");
             return [];

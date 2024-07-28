@@ -10,13 +10,12 @@ import SwiftUI
 @main
 struct CoreData_CRUDApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject var viewModel = CRUDViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(FormViewModel: FormViewModel(), crudViewModel: CRUDViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environmentObject(FormViewModel())
-                .environmentObject(CRUDViewModel())
         }
     }
 }
