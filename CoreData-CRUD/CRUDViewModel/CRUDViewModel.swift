@@ -60,7 +60,7 @@ class CRUDViewModel: ObservableObject {
     }
     
     // Update Record
-    func updateRecord(context: NSManagedObjectContext,email : String, newUserName : String , newPassword: String){
+    func updateRecord(context: NSManagedObjectContext, email : String, newUserName : String , newPassword: String){
         let fetchRequest : NSFetchRequest<User> = User.fetchRequest();
         fetchRequest.predicate = NSPredicate(format: "email == %@", email);
         fetchRequest.fetchLimit = 1;

@@ -14,7 +14,7 @@ struct CoreData_CRUDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(FormViewModel: FormViewModel(), crudViewModel: CRUDViewModel())
+            ContentView(formViewModel: FormViewModel(), crudViewModel: CRUDViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

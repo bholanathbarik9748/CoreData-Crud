@@ -6,78 +6,98 @@
 //
 
 import Foundation
-import CoreData
 import SwiftUI
 
-class FormViewModel : ObservableObject {
-    @Published var email : String = "";
-    @Published var password : String = "";
-    @Published var userName : String = "";
-    @Published var showAlert : Bool = false;
-    @Published var errorMsg : String = "";
+// ViewModel for managing form data and validation
+class FormViewModel: ObservableObject {
+    // Published properties to bind with the view
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var userName: String = ""
+    @Published var showAlert: Bool = false
+    @Published var errorMsg: String = ""
     
-    func ValidAndSubmit() -> Bool {
-        if email.isEmpty {
-            showAlert = true
-            errorMsg = "Please Enter Email";
-            return false;
-        }
-        
-        if password.isEmpty {
-            showAlert = true
-            errorMsg = "Please Enter Password";
-            return false;
-        }
-        
-        if userName.isEmpty {
-            showAlert = true
-            errorMsg = "Please Enter User  Name";
-            return false;
-        }
-        
-        if !isValidEmail(email) {
-            showAlert = true;
-            errorMsg = "Please Enter Valid Email";
-            return false;
-        }
-        
-        if(!isValidPassword(password)){
-            showAlert = true
-            return false;
-        }
-        
-        return true;
+    // Method to reset form fields
+    func resetFields() {
+        email = ""
+        userName = ""
+        password = ""
     }
     
+    // Method to validate input and submit the form
+    func ValidAndSubmit() -> Bool {
+        // Check if email is empty
+        if email.isEmpty {
+            showError(message: "Please Enter Email")
+            return false
+        }
+        
+        // Check if password is empty
+        if password.isEmpty {
+            showError(message: "Please Enter Password")
+            return false
+        }
+        
+        // Check if userName is empty
+        if userName.isEmpty {
+            showError(message: "Please Enter User Name")
+            return false
+        }
+        
+        // Validate email format
+        if !isValidEmail(email) {
+            showError(message: "Please Enter Valid Email")
+            return false
+        }
+        
+        // Validate password strength
+        if !isValidPassword(password) {
+            return false
+        }
+        
+        return true
+    }
+    
+    // Helper method to show error messages
+    private func showError(message: String) {
+        errorMsg = message
+        showAlert = true
+    }
+    
+    // Helper method to validate email format using regular expression
     private func isValidEmail(_ email: String) -> Bool {
-        // Simple regex for email validation
+        // Regular expression for email validation
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
     
+    // Helper method to validate password strength
     private func isValidPassword(_ password: String) -> Bool {
+        // Check if password length is at least 8 characters
         if password.count < 8 {
-            errorMsg = "Please Enter password Greater then or Equal to 8.";
-            return false;
+            showError(message: "Please Enter password Greater than or Equal to 8.")
+            return false
         }
         
+        // Check if password contains at least one uppercase letter
         if !password.contains(where: { $0.isUppercase }) {
-            errorMsg = "Password Must Contain Upper Case Letter."
-            return false;
+            showError(message: "Password Must Contain Upper Case Letter.")
+            return false
         }
         
+        // Check if password contains at least one lowercase letter
         if !password.contains(where: { $0.isLowercase }) {
-            errorMsg = "Password Must Contain Lower Case Letter."
-            return false;
+            showError(message: "Password Must Contain Lower Case Letter.")
+            return false
         }
         
-        
+        // Check if password contains at least one number
         if !password.contains(where: { $0.isNumber }) {
-            errorMsg = "Password Must Contain Number."
-            return false;
+            showError(message: "Password Must Contain Number.")
+            return false
         }
         
-        return true;
+        return true
     }
 }
